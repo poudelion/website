@@ -9,26 +9,26 @@
     gtag('js', new Date());
     gtag('config', 'G-BQMYJ1ZE81');
   </script>
-  <link rel="icon" type="image/x-icon" href="pngs/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="pngs/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="pngs/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="pngs/apple-touch-icon.png" />
+  <link rel="icon" type="image/x-icon" href="../pngs/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../pngs/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../pngs/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../pngs/apple-touch-icon.png" />
 
   <!-- SEO -->
-  <meta name="description" content="Work experience — Aditya Raj Poudel." />
-  <meta property="og:title" content="Experience — Aditya Raj Poudel" />
-  <meta property="og:description" content="Work experience and roles." />
+  <meta name="description" content="ExEv — a research prototype for evacuation simulation and routing optimization." />
+  <meta property="og:title" content="ExEv — Aditya Raj Poudel" />
+  <meta property="og:description" content="Projects: dashboards, tools, and more." />
   <meta property="og:image" content="https://adityapoudel.live/pngs/preview.png" />
-  <meta property="og:url" content="https://adityapoudel.live/experience.html" />
+  <meta property="og:url" content="https://adityapoudel.live/projects/exev.html" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Experience — Aditya Raj Poudel" />
-  <meta name="twitter:description" content="Work experience and roles." />
+  <meta name="twitter:title" content="ExEv — Aditya Raj Poudel" />
+  <meta name="twitter:description" content="Projects: dashboards, tools, and more." />
   <meta name="twitter:image" content="https://adityapoudel.live/pngs/preview.png" />
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Experience — Aditya Raj Poudel</title>
+  <title>ExEv — Aditya Raj Poudel</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -52,35 +52,36 @@
     }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css">
-  <link rel="stylesheet" href="torch.css">
-  <link rel="stylesheet" href="selection-fire.css">
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="../torch.css">
+  <link rel="stylesheet" href="../selection-fire.css">
 </head>
 <body class="text-gray-300 min-h-screen relative">
 
   <!-- Floating Nav -->
-  <a class="home-return" href="index.html" aria-label="Go back to home page">← Home</a>
+  <a class="home-return" href="../index.html" aria-label="Go back to home page">← Home</a>
 
   <main class="relative z-10 max-w-3xl mx-auto px-5 pt-28 pb-24 flex flex-col gap-6">
-
-    <section id="experience" class="fade-up">
-      <div class="card rounded-2xl p-6 sm:p-9">
-        <p class="section-label mb-2">Work Experience</p>
-        <div class="flex items-start justify-between gap-3 flex-wrap mb-1">
-          <h1 class="font-syne text-xl font-bold text-white">Student Success Center — CCBC Essex</h1>
-          <span class="text-xs px-3 py-1 rounded-full border whitespace-nowrap" style="color:#a2a9b1;background:#171c21;border-color:#353c44">May 2024 – Dec 2025</span>
-        </div>
-        <div class="grad-line mt-3 mb-5"></div>
-        <p class="leading-relaxed mb-4" style="color:#a2a9b1">
-          Worked part-time as a tutor, helping fellow students with Mathematics and CSIT problems. Earned my CLRA Level 2 certification during this role.
-        </p>
-        <img src="pngs/experience1.png" alt="Student Success Center"
-          class="rounded-xl w-full max-w-sm" style="border: 1px solid #353c44" />
-      </div>
-    </section>
-
+    <a href="../showcase.html" style="color:#8eafff">← Back to Showcase</a>
+    <article class="card p-6 sm:p-9">
+      <p class="section-label mb-2">Research prototype</p>
+      <h1 class="font-syne text-3xl text-white mb-4">ExEv</h1>
+      <p class="leading-relaxed mb-6" style="color:#a2a9b1">A simulation environment for studying evacuation routes and comparing classical algorithms with QUBO-based optimization.</p>
+      <img src="../pngs/ExEv.png" alt="ExEv evacuation simulation dashboard" style="width:100%;height:auto;display:block;border:1px solid #353c44" />
+      <h2 class="font-syne text-2xl text-white mt-8 mb-3">Comparing the ways out</h2>
+      <p class="leading-relaxed mb-4" style="color:#a2a9b1">ExEv models moving agents, limited shelter capacity, traffic congestion, and changing hazards on synthetic maps. Its animated dashboard runs routing strategies side by side on the same scenario, making differences in evacuation progress and exposure easier to inspect.</p>
+      <h2 class="font-syne text-2xl text-white mt-8 mb-3">What it includes</h2>
+      <ul class="list-disc pl-5 space-y-2 leading-relaxed" style="color:#a2a9b1">
+        <li>Shortest-path, congestion-aware, hazard-aware, and minimum-cost-flow routing.</li>
+        <li>Route assignment using quadratic unconstrained binary optimization (QUBO), with exact reference solving and classical simulated annealing.</li>
+        <li>Reproducible experiments with deterministic fire and flood scenarios.</li>
+        <li>Dashboard playback showing agents, hazards, road congestion, and shelter occupancy.</li>
+      </ul>
+      <div class="flex flex-wrap gap-2 mt-6"><span class="tag">Python</span><span class="tag">Simulation</span><span class="tag">Graph algorithms</span><span class="tag">QUBO</span><span class="tag">Data visualization</span></div>
+      <p class="text-sm leading-relaxed mt-6 mb-6" style="color:#a2a9b1">Currently a research prototype using synthetic maps. Real-world data and external quantum hardware integration are future directions.</p>
+      <a href="https://github.com/poudelion/ExEv" target="_blank" rel="noopener noreferrer" class="btn-primary">View ExEv on GitHub ↗</a>
+    </article>
   </main>
-
   <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-icons">
@@ -108,7 +109,7 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
 
-  <script src="torch.js"></script>
-  <script src="selection-fire.js"></script>
+  <script src="../torch.js"></script>
+  <script src="../selection-fire.js"></script>
 </body>
 </html>

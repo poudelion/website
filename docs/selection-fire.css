@@ -1,0 +1,6 @@
+html.selection-burning ::selection { background: transparent; color: inherit; text-shadow: none; }
+.selection-fire { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:2147483647; }
+.home-return { position:absolute; top:24px; left:24px; z-index:50; display:inline-flex; align-items:center; gap:8px; padding:9px 15px; border:1px solid #353c44; border-radius:3px; background:#101418; color:#8eafff; font:14px/1.5 Arial,sans-serif; text-decoration:none; }
+.home-return:hover { background:#1b2531; border-color:#7185a3; }
+.home-return:focus-visible { outline:2px solid #8eafff; outline-offset:4px; }
+@media (prefers-reduced-motion:reduce), (forced-colors:active) { .selection-fire { display:none; } }

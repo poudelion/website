@@ -36,9 +36,9 @@
             bg: '#0d0f1e',
             surface: '#13152a',
             surface2: '#1a1d35',
-            accent: '#1d4ed8',
-            accent2: '#1d4ed8',
-            muted: '#7878a0',
+            accent: '#8eafff',
+            accent2: '#8eafff',
+            muted: '#a2a9b1',
           },
         }
       }
@@ -49,13 +49,13 @@
     body { background-color: #0d0f1e; font-family: 'DM Sans', sans-serif; }
 
     .nav-glass {
-      background: #1c1c22;
-      border: 1px solid #ffffff;
+      background: #171c21;
+      border: 1px solid #353c44;
     }
 
     .card {
-      background: #1c1c22;
-      border: 1px solid #ffffff;
+      background: #171c21;
+      border: 1px solid #353c44;
       box-shadow: 0 4px 32px rgba(0,0,0,0.35);
     }
 
@@ -67,7 +67,7 @@
     .fade-up.show { opacity: 1; transform: translateY(0); }
 
     .nav-link {
-      color: #7878a0;
+      color: #a2a9b1;
       font-family: 'Syne', sans-serif;
       font-size: 13px;
       font-weight: 600;
@@ -78,15 +78,15 @@
       text-decoration: none;
     }
     .nav-link:hover, .nav-link.active {
-      color: #ffffff;
-      background: #1d4ed8;
+      color: #353c44;
+      background: #8eafff;
     }
 
     .tag {
       display: inline-block;
-      background: #1c1c22;
-      border: 1px solid #ffffff;
-      color: #1d4ed8;
+      background: #171c21;
+      border: 1px solid #353c44;
+      color: #8eafff;
       font-size: 11.5px;
       font-weight: 500;
       padding: 3px 11px;
@@ -103,11 +103,11 @@
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #1d4ed8;
+      color: #8eafff;
     }
 
     .btn-primary {
-      background: #1d4ed8;
+      background: #8eafff;
       color: white;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
@@ -124,14 +124,14 @@
     .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
 
     .btn-outline {
-      background: #1c1c22;
-      color: #1d4ed8;
+      background: #171c21;
+      color: #8eafff;
       font-family: 'Syne', sans-serif;
       font-weight: 700;
       font-size: 13px;
       padding: 10px 22px;
       border-radius: 999px;
-      border: 1px solid #ffffff;
+      border: 1px solid #353c44;
       display: inline-flex;
       align-items: center;
       gap: 7px;
@@ -139,19 +139,19 @@
       letter-spacing: 0.03em;
       text-decoration: none;
     }
-    .btn-outline:hover { background: #1d4ed8; border-color: #ffffff; color: #ffffff; transform: translateY(-1px); }
+    .btn-outline:hover { background: #8eafff; border-color: #353c44; color: #353c44; transform: translateY(-1px); }
 
     .proj-img {
       width: 100%;
       aspect-ratio: 16 / 10;
       object-fit: cover;
       display: block;
-      border-bottom: 1px solid #ffffff;
+      border-bottom: 1px solid #353c44;
     }
 
     .placeholder-text {
       font-style: italic;
-      color: #7878a0;
+      color: #a2a9b1;
       opacity: 0.55;
     }
 
@@ -170,39 +170,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #7878a0;
+      color: #a2a9b1;
       opacity: 0.5;
       transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
       text-decoration: none;
     }
-    .footer-icon:hover { color: #1d4ed8; opacity: 1; transform: translateY(-2px); }
+    .footer-icon:hover { color: #8eafff; opacity: 1; transform: translateY(-2px); }
     .footer-icon svg { width: 16px; height: 16px; fill: currentColor; display: block; }
     .footer-copy {
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      color: #7878a0;
+      color: #a2a9b1;
       opacity: 0.4;
       letter-spacing: 0.04em;
     }
   </style>
+  <link rel="stylesheet" href="../torch.css">
+  <link rel="stylesheet" href="../selection-fire.css">
 </head>
 <body class="text-gray-300 min-h-screen relative">
 
   <!-- Floating Nav -->
-  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-glass rounded-full px-2 py-1.5 flex gap-0.5" style="max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-    <a href="/#home" class="nav-link" style="white-space:nowrap">Home</a>
-    <a href="/#about" class="nav-link" style="white-space:nowrap">About</a>
-    <a href="/#travel" class="nav-link" style="white-space:nowrap">Travel</a>
-    <a href="/#skills" class="nav-link" style="white-space:nowrap">S-Kills</a>
-    <a href="/#experience" class="nav-link" style="white-space:nowrap">Experience</a>
-    <a href="/#showcase" class="nav-link active" style="white-space:nowrap">Showcase</a>
-    <a href="/#contact" class="nav-link" style="white-space:nowrap">Contact</a>
-  </nav>
+  <a class="home-return" href="../index.html" aria-label="Go back to home page">← Home</a>
 
   <main class="relative z-10 max-w-3xl mx-auto px-5 pt-28 pb-24 flex flex-col gap-6">
 
     <!-- Back link -->
-    <a href="/#showcase" class="fade-up inline-flex items-center gap-2 text-sm font-semibold" style="color:#7878a0;text-decoration:none;width:fit-content;transition:color 0.2s;" onmouseover="this.style.color='#e0e0f5'" onmouseout="this.style.color='#7878a0'">
+    <a href="/#showcase" class="fade-up inline-flex items-center gap-2 text-sm font-semibold" style="color:#a2a9b1;text-decoration:none;width:fit-content;transition:color 0.2s;" onmouseover="this.style.color='#e0e0f5'" onmouseout="this.style.color='#a2a9b1'">
       ← Back to Showcase
     </a>
 
@@ -213,7 +207,7 @@
         <p class="section-label mb-2">Project</p>
         <h1 class="font-syne text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-2">SUBS</h1>
         <div class="grad-line mt-3 mb-4"></div>
-        <p class="text-sm leading-relaxed" style="color:#7878a0">Smarter subs. Better second halves.</p>
+        <p class="text-sm leading-relaxed" style="color:#a2a9b1">Smarter subs. Better second halves.</p>
       </div>
     </div>
 
@@ -222,7 +216,7 @@
       <p class="section-label mb-2">Motive</p>
       <h2 class="font-syne text-lg font-bold text-white mb-1">Why I Built This</h2>
       <div class="grad-line mt-3 mb-5"></div>
-      <p class="leading-relaxed" style="color:#7878a0">
+      <p class="leading-relaxed" style="color:#a2a9b1">
         In soccer, substitutions are one of the most impactful decisions a manager makes — yet they're often based on gut feel. SUBS was built to bring a data-informed lens to that decision, analyzing player performance during a match and recommending who should come off and who should come on.
       </p>
     </div>
@@ -232,8 +226,8 @@
       <p class="section-label mb-2">Build</p>
       <h2 class="font-syne text-lg font-bold text-white mb-1">How I Built It</h2>
       <div class="grad-line mt-3 mb-5"></div>
-      <p class="leading-relaxed" style="color:#7878a0">
-        Written entirely in Rust, SUBS is a modular CLI tool with clear separation of concerns. It ingests StatsBomb open football match event data (JSON) and team lineups, then pipes that through a fatigue-scoring module (<code style="color:#1d4ed8;font-size:0.85em">decay.rs</code>) that computes per-player tiredness using activity decay metrics. A tactical analysis module (<code style="color:#1d4ed8;font-size:0.85em">matcher.rs</code>) detects performance gaps and positional vulnerabilities, and the recommendation engine maps bench players to the weakest on-field roles. Output is available as plain CLI text or a full-screen interactive terminal dashboard built with <code style="color:#1d4ed8;font-size:0.85em">ratatui</code>.
+      <p class="leading-relaxed" style="color:#a2a9b1">
+        Written entirely in Rust, SUBS is a modular CLI tool with clear separation of concerns. It ingests StatsBomb open football match event data (JSON) and team lineups, then pipes that through a fatigue-scoring module (<code style="color:#8eafff;font-size:0.85em">decay.rs</code>) that computes per-player tiredness using activity decay metrics. A tactical analysis module (<code style="color:#8eafff;font-size:0.85em">matcher.rs</code>) detects performance gaps and positional vulnerabilities, and the recommendation engine maps bench players to the weakest on-field roles. Output is available as plain CLI text or a full-screen interactive terminal dashboard built with <code style="color:#8eafff;font-size:0.85em">ratatui</code>.
       </p>
     </div>
 
@@ -255,7 +249,7 @@
       <p class="section-label mb-2">Features</p>
       <h2 class="font-syne text-lg font-bold text-white mb-1">What It Does</h2>
       <div class="grad-line mt-3 mb-5"></div>
-      <p class="leading-relaxed" style="color:#7878a0">
+      <p class="leading-relaxed" style="color:#a2a9b1">
         Takes in match data and player performance metrics, then surfaces substitution recommendations to help a manager make better in-game decisions. Fatigue scores are computed per player, tactical vulnerabilities are identified, and the best available bench option is matched to each gap.
       </p>
     </div>
@@ -265,7 +259,7 @@
       <p class="section-label mb-2">Roadmap</p>
       <h2 class="font-syne text-lg font-bold text-white mb-1">What's Next</h2>
       <div class="grad-line mt-3 mb-5"></div>
-      <p class="leading-relaxed" style="color:#7878a0">
+      <p class="leading-relaxed" style="color:#a2a9b1">
         Could integrate real-time match data feeds, expand to factor in opponent tactics, and build a visual dashboard for live match management.
       </p>
     </div>
@@ -306,5 +300,7 @@
     </div>
     <span class="footer-copy">© 2026 Aditya Raj Poudel</span>
   </footer>
+  <script src="../torch.js"></script>
+  <script src="../selection-fire.js"></script>
 </body>
 </html>

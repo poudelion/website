@@ -43,9 +43,9 @@
             bg: '#0d0f1e',
             surface: '#13152a',
             surface2: '#1a1d35',
-            accent: '#1d4ed8',
-            accent2: '#1d4ed8',
-            muted: '#7878a0',
+            accent: '#8eafff',
+            accent2: '#8eafff',
+            muted: '#a2a9b1',
           },
         }
       }
@@ -53,23 +53,19 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="torch.css">
+  <link rel="stylesheet" href="selection-fire.css">
 </head>
 <body class="text-gray-300 min-h-screen relative">
 
   <!-- Floating Nav -->
-  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-glass rounded-full px-2 py-1.5 flex gap-0.5" style="max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="about.html" class="nav-link">About</a>
-    <a href="skills.html" class="nav-link active">S-Kills</a>
-    <a href="experience.html" class="nav-link">Experience</a>
-    <a href="showcase.html" class="nav-link">Showcase</a>
-  </nav>
+  <a class="home-return" href="index.html" aria-label="Go back to home page">← Home</a>
 
   <main class="relative z-10 max-w-3xl mx-auto px-5 pt-28 pb-24 flex flex-col gap-6">
 
     <section id="skills" class="fade-up">
       <div class="card rounded-2xl p-6 sm:p-9">
-        <p class="section-label mb-2">S-Kills</p>
+        <p class="section-label mb-2">Skills</p>
         <h1 class="font-syne text-xl sm:text-2xl font-bold text-white mb-1">What I Work With</h1>
         <div class="grad-line mt-3 mb-7"></div>
 
@@ -188,5 +184,7 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
 
+  <script src="torch.js"></script>
+  <script src="selection-fire.js"></script>
 </body>
 </html>

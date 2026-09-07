@@ -43,9 +43,9 @@
             bg: '#0d0f1e',
             surface: '#13152a',
             surface2: '#1a1d35',
-            accent: '#1d4ed8',
-            accent2: '#1d4ed8',
-            muted: '#7878a0',
+            accent: '#8eafff',
+            accent2: '#8eafff',
+            muted: '#a2a9b1',
           },
         }
       }
@@ -53,17 +53,13 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="torch.css">
+  <link rel="stylesheet" href="selection-fire.css">
 </head>
 <body class="text-gray-300 min-h-screen relative">
 
   <!-- Floating Nav -->
-  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-glass rounded-full px-2 py-1.5 flex gap-0.5" style="max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="about.html" class="nav-link">About</a>
-    <a href="skills.html" class="nav-link">S-Kills</a>
-    <a href="experience.html" class="nav-link">Experience</a>
-    <a href="showcase.html" class="nav-link active">Showcase</a>
-  </nav>
+  <a class="home-return" href="index.html" aria-label="Go back to home page">← Home</a>
 
   <main class="relative z-10 max-w-3xl mx-auto px-5 pt-28 pb-24 flex flex-col gap-6">
 
@@ -73,6 +69,14 @@
       <div class="grad-line mt-2 mb-5"></div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger">
+
+        <a href="projects/exev.html" class="project-card rounded-2xl overflow-hidden block">
+          <img src="pngs/ExEv.png" alt="ExEv evacuation simulation dashboard" class="proj-img" />
+          <div class="p-4">
+            <h2 class="font-syne font-bold text-white text-sm leading-snug mb-2">ExEv</h2>
+            <p class="text-sm leading-relaxed" style="color:#a2a9b1">Evacuation simulation, routing optimization, and an animated comparison dashboard.</p>
+          </div>
+        </a>
 
         <a href="projects/homicide-dashboard.html"
            class="project-card rounded-2xl overflow-hidden block">
@@ -108,14 +112,14 @@
 
         <a href="projects/copyit.html"
            class="project-card rounded-2xl overflow-hidden block">
-          <div class="proj-img flex flex-col justify-end p-5" style="background:#1c1c22;border-bottom:1px solid #ffffff;">
-            <p class="font-syne text-xs font-bold tracking-widest uppercase mb-1" style="color:#1d4ed8">CopyIt</p>
+          <div class="proj-img flex flex-col justify-end p-5" style="background:#171c21;border-bottom:1px solid #353c44;">
+            <p class="font-syne text-xs font-bold tracking-widest uppercase mb-1" style="color:#8eafff">CopyIt</p>
             <p class="font-syne text-sm font-semibold leading-snug" style="color:#e0e0f5">"Built because Ctrl+C shouldn't have exceptions."</p>
           </div>
           <div class="p-4">
             <h2 class="font-syne font-bold text-white text-sm leading-snug mb-2">CopyIt</h2>
-            <p class="text-xs leading-relaxed mb-3" style="color:#7878a0">A lightweight tool that lets you copy text from anywhere on screen — even when the site blocks it. Built out of frustration, shipped as a fix.</p>
-            <span class="text-xs font-syne font-semibold" style="color:#1d4ed8">View on GitHub →</span>
+            <p class="text-xs leading-relaxed mb-3" style="color:#a2a9b1">A lightweight tool that lets you copy text from anywhere on screen — even when the site blocks it. Built out of frustration, shipped as a fix.</p>
+            <span class="text-xs font-syne font-semibold" style="color:#8eafff">View on GitHub →</span>
           </div>
         </a>
 
@@ -125,7 +129,7 @@
           <div class="p-4">
             <div class="flex items-center justify-between gap-2">
               <h2 class="font-syne font-bold text-white text-sm leading-snug">Let's Football</h2>
-              <span class="text-xs px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0" style="background:#1c1c22;border:1px solid #ffffff;color:#7878a0">🖥️ Desktop only</span>
+              <span class="text-xs px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0" style="background:#171c21;border:1px solid #353c44;color:#a2a9b1">🖥️ Desktop only</span>
             </div>
           </div>
         </a>
@@ -162,5 +166,7 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
 
+  <script src="torch.js"></script>
+  <script src="selection-fire.js"></script>
 </body>
 </html>

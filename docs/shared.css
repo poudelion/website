@@ -383,3 +383,20 @@ body {
   .popup-body { padding: 14px 18px 28px; }
   #popup-city { font-size: 16px; }
 }
+
+/* Encyclopedia theme shared by the article and project pages. */
+body{background:#101418;color:#eaecf0;font-family:Arial,Helvetica,sans-serif}
+.font-syne{font-family:Georgia,'Times New Roman',serif!important;font-weight:400!important}
+.nav-glass{background:#101418;border:0;border-bottom:1px solid #353c44;border-radius:0!important;padding:12px 0!important}
+.nav-link{font:14px Arial,sans-serif;letter-spacing:0;color:#a2a9b1;border-radius:0;padding:9px 14px}
+.nav-link:hover,.nav-link.active{color:#8eafff;background:transparent;box-shadow:inset 0 -2px #8eafff}
+.card,.project-card{background:transparent;border:0;border-radius:0!important;box-shadow:none}
+.project-card{border-bottom:1px solid #353c44}
+.project-card:hover{transform:none;box-shadow:none;background:#171c21}
+.section-label{font:12px Arial,sans-serif;letter-spacing:.12em;color:#a2a9b1}
+.tag{border:1px solid #353c44;background:#171c21;color:#a2a9b1;border-radius:2px;font-size:13px}
+.btn-primary,.btn-outline{font:14px Arial,sans-serif;border-radius:2px;background:#233958;color:#c7d9ff;border:1px solid #536a8d;letter-spacing:0}
+.skill-name,.skills-cat-label{font-family:Arial,sans-serif;font-size:14px;color:#a2a9b1}
+.footer-copy,.footer-icon{color:#a2a9b1;opacity:1}.footer-copy{font:12px Arial,sans-serif}
+.proj-img{border-color:#353c44}.fade-up{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}

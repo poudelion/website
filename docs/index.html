@@ -30,91 +30,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aditya Raj Poudel</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            syne: ['Syne', 'sans-serif'],
-            dm: ['DM Sans', 'sans-serif'],
-          },
-          colors: {
-            bg: '#0d0f1e',
-            surface: '#13152a',
-            surface2: '#1a1d35',
-            accent: '#1d4ed8',
-            accent2: '#1d4ed8',
-            muted: '#7878a0',
-          },
-        }
-      }
-    }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="wiki.css">
+  <link rel="stylesheet" href="torch.css">
+  <link rel="stylesheet" href="selection-fire.css">
 </head>
-<body class="text-gray-300 min-h-screen relative">
+<body class="wiki-home">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar"><a class="small-brand" href="index.html">ADI <span>/ Personal encyclopedia</span></a><div><a href="https://github.com/poudelion">GitHub ↗</a><a href="#contact">Get in touch ↗</a></div></header>
+<main id="main">
+<section class="portal" aria-labelledby="name">
+<div class="masthead"><h1 id="name">Aditya Raj Poudel</h1><p class="subtitle">The personal encyclopedia</p></div>
+<div class="orbit" id="travel">
+<a class="orbit-link o1" href="about.html"><strong>Biography</strong><span>The person behind the projects</span></a>
+<a class="orbit-link o2" href="showcase.html"><strong>Projects</strong><span>7 ideas brought to life</span></a>
+<a class="orbit-link o3" href="about.html#education"><strong>Education</strong><span>A continuing pursuit of knowledge</span></a>
+<a class="orbit-link o4" href="skills.html"><strong>Skills &amp; tools</strong><span>My technical vocabulary</span></a>
+<a class="orbit-link o5" href="experience.html"><strong>Experience</strong><span>Learning through doing</span></a>
 
-  <!-- Floating Nav -->
-  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-glass rounded-full px-2 py-1.5 flex gap-0.5" style="max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-    <a href="index.html" class="nav-link active">Home</a>
-    <a href="about.html" class="nav-link">About</a>
-    <a href="skills.html" class="nav-link">S-Kills</a>
-    <a href="experience.html" class="nav-link">Experience</a>
-    <a href="showcase.html" class="nav-link">Showcase</a>
-  </nav>
-
-  <main class="relative z-10 max-w-3xl mx-auto px-5 pt-28 pb-24 flex flex-col gap-6">
-
-    <!-- Hero -->
-    <section id="home" class="fade-up">
-      <div class="card rounded-2xl p-6 sm:p-9">
-        <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
-
-          <!-- Text -->
-          <div class="flex-1 min-w-0">
-            <p class="section-label mb-3">Portfolio</p>
-            <h1 class="font-syne text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-1">
-              Aditya Raj Poudel
-            </h1>
-            <p class="text-sm mb-5" style="color:#7878a0"></p>
-            <div class="grad-line mb-5"></div>
-            <p class="font-syne text-lg font-semibold text-gray-200 leading-relaxed">
-              "A small dose, not of genius, but of an
-              <span style="color:#1d4ed8">imaginative freedom</span>
-              which in a larger dose would be insanity."
-            </p>
-          </div>
-
-          <!-- Photo -->
-          <div class="flex-shrink-0">
-            <img src="pngs/preview.png" alt="Aditya Raj Poudel"
-              class="w-32 h-32 rounded-2xl object-cover"
-              style="border: 2px solid #ffffff" />
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Places I've Been -->
-    <section id="travel" class="fade-up">
-      <div class="card rounded-2xl p-6 sm:p-9">
-        <p class="section-label mb-2">Places I've Been</p>
-        <h2 class="font-syne text-xl sm:text-2xl font-bold text-white mb-1">Around the World</h2>
-        <div class="grad-line mt-3 mb-5"></div>
-        <p class="mb-5 text-sm leading-relaxed" style="color:#7878a0">
-          Click a pin to explore places I've called home or visited. Drag to rotate, scroll to zoom.
-        </p>
-        <div id="globe-container">
-          <canvas id="globe-canvas"></canvas>
-          <div class="globe-zoom-controls">
-            <button type="button" id="globe-zoom-in" class="globe-zoom-btn" aria-label="Zoom in">+</button>
-            <button type="button" id="globe-zoom-out" class="globe-zoom-btn" aria-label="Zoom out">&minus;</button>
-          </div>
-          <div id="travel-popup" class="hidden">
+<div class="globe-stage"><div id="globe-container"><canvas id="globe-canvas" aria-label="Interactive globe of places I have visited"></canvas><div class="globe-zoom-controls"><button type="button" id="globe-zoom-in" class="globe-zoom-btn" aria-label="Zoom in">+</button><button type="button" id="globe-zoom-out" class="globe-zoom-btn" aria-label="Zoom out">−</button></div>          <div id="travel-popup" class="hidden">
             <button id="popup-close-btn" aria-label="Close">✕</button>
             <div class="popup-photo-wrap">
               <img id="popup-img" src="" alt="" />
@@ -126,93 +61,22 @@
               <div id="popup-note"></div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="fade-up">
-      <div class="card rounded-2xl p-6 sm:p-9">
-        <p class="section-label mb-2">Contact</p>
-        <h2 class="font-syne text-xl sm:text-2xl font-bold text-white mb-1">Let's Connect</h2>
-        <div class="grad-line mt-3 mb-5"></div>
-        <p class="leading-relaxed mb-6" style="color:#7878a0">
-          Feel free to reach out — whether it's about a project, a question, or just to say hi.
-        </p>
-        <div class="flex items-center gap-4 flex-wrap mb-8">
-          <a href="mailto:adityarajpoudel@gmail.com" class="btn-primary">✉&nbsp; Email Me</a>
-          <div class="flex gap-3 items-center">
-            <a href="https://www.linkedin.com/in/aditya-poudel-526a66277/" target="_blank">
-              <img src="pngs/linkedin1.png" alt="LinkedIn" class="social-icon" />
-            </a>
-            <a href="https://github.com/poudelion" target="_blank">
-              <img src="pngs/github1.png" alt="GitHub" class="social-icon" />
-            </a>
-          </div>
-        </div>
-
-        <div class="grad-line mb-6"></div>
-        <p class="font-syne font-semibold text-white mb-3">Send an Anonymous Message</p>
-        <form id="anon-form" action="https://api.web3forms.com/submit" method="POST">
+</div></div>
+</div>
+</section>
+<section id="contact" class="contact-section"><div><p class="eyebrow">KEEP THE CONVERSATION GOING</p><h2>Every good idea starts somewhere.</h2><p>A project, a question, or just a hello.</p><div class="contact-links"><a href="mailto:adityarajpoudel@gmail.com">Email ↗</a><a href="https://www.linkedin.com/in/aditya-poudel-526a66277/">LinkedIn ↗</a><a href="https://www.instagram.com/adityaa.poudel/">Instagram ↗</a></div></div><div class="anonymous-card"><div class="anonymous-greeting"><span class="spidey" aria-hidden="true">🕷</span><div><p class="comic-hello">Hey, stranger.</p><h3>Keep your secret identity.</h3><p>No name needed. Just drop a little hello.</p></div></div>        <form id="anon-form" action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value="af8a3809-a27a-4fd5-9dcb-15fa8971ffc3" />
           <input type="hidden" name="subject" value="Anonymous message from adityapoudel.live" />
           <input type="hidden" name="from_name" value="Anonymous" />
-          <textarea name="message" rows="4" placeholder="Type your message..." required
+          <textarea aria-label="Anonymous message" name="message" rows="4" placeholder="Hey Adi, here’s a thought…" maxlength="5000" required
             style="width:100%;background:#1a1a2e;color:#e0e0f0;border:1px solid #2e2e4e;border-radius:0.75rem;padding:0.75rem 1rem;font-size:0.875rem;resize:vertical;outline:none;"
             onfocus="this.style.borderColor='#1d4ed8'" onblur="this.style.borderColor='#2e2e4e'"></textarea>
-          <button type="submit" class="btn-primary mt-3">Send Anonymously</button>
+          <button type="submit" class="btn-primary mt-3">Send a little mystery ↗</button>
           <p id="anon-status" class="mt-3 text-sm" style="color:#1d4ed8;display:none;"></p>
-        </form>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-icons">
-      <a href="mailto:adityarajpoudel@gmail.com" class="footer-icon" aria-label="Email">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </a>
-      <a href="https://github.com/poudelion" target="_blank" rel="noopener" class="footer-icon" aria-label="GitHub">
-        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/aditya-poudel-526a66277/" target="_blank" rel="noopener" class="footer-icon" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/adityaa.poudel/" target="_blank" rel="noopener" class="footer-icon" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      </a>
-    </div>
-    <span class="footer-copy">© 2026 Aditya Raj Poudel</span>
-  </footer>
-
-  <script>
-    // Anonymous form
-    document.getElementById('anon-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const status = document.getElementById('anon-status');
-      const btn = this.querySelector('button[type=submit]');
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: new FormData(this)
-      });
-      const data = await res.json();
-      status.style.display = 'block';
-      if (data.success) {
-        status.textContent = 'Message sent!';
-        this.reset();
-      } else {
-        status.style.color = '#f87171';
-        status.textContent = 'Something went wrong. Please try again.';
-      }
-      btn.disabled = false;
-      btn.textContent = 'Send Anonymously';
-    });
-  </script>
-
+        </form></div></section>
+</main><footer class="wiki-footer"><span>© 2026 Aditya Raj Poudel</span><a href="#main">Back to top ↑</a></footer>
+<script src="contact.js"></script>
+<script src="solar.js"></script>
   <script>
   /* ── Travel Globe ── */
   (function () {
@@ -240,7 +104,7 @@
     var dragging = false, prevPt = {x:0,y:0}, vel = {x:0,y:0};
     var lastInteract = 0, activeIdx = -1;
     var clusterEls = [], currentClusters = [];
-    var initialized = false;
+    var initialized = false, earthMaterial, lastSunUpdate = 0;
 
     function ll2v(lat, lon, r) {
       var phi   = (90 - lat) * Math.PI / 180;
@@ -255,36 +119,70 @@
     function clampX(v) { return Math.max(-Math.PI/2, Math.min(Math.PI/2, v)); }
 
     function init() {
-      if (initialized) return;
+      if (initialized || !window.THREE) return;
       initialized = true;
 
       var container = document.getElementById('globe-container');
       var canvas    = document.getElementById('globe-canvas');
 
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); } catch (error) {
+        container.insertAdjacentHTML('beforeend', '<p class="globe-error">Your browser could not start the interactive Earth.</p>'); return;
+      }
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setClearColor(0x000000, 0);
 
       scene  = new THREE.Scene();
       camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-      camera.position.z = 2.65;
+      camera.position.z = 3.0;
 
       globeGroup = new THREE.Group();
       scene.add(globeGroup);
 
-      var loader   = new THREE.TextureLoader();
-      var earthTex = loader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg');
-      var mat      = new THREE.MeshBasicMaterial({ map: earthTex });
-      globeGroup.add(new THREE.Mesh(new THREE.SphereGeometry(RADIUS, 64, 64), mat));
-
-      var atmMat = new THREE.MeshPhongMaterial({
-        color: 0x1d4ed8, transparent: true, opacity: 0.06, side: THREE.BackSide
+      var loader = new THREE.TextureLoader();
+      function textureFailure() {
+        if (!document.querySelector('.globe-error')) {
+          container.insertAdjacentHTML('beforeend', '<p class="globe-error">Earth imagery could not load. Please refresh to try again.</p>');
+        }
+      }
+      var dayMap = loader.load('https://cdn.jsdelivr.net/npm/three-globe@2.45.0/example/img/earth-blue-marble.jpg', undefined, undefined, textureFailure);
+      var nightMap = loader.load('https://cdn.jsdelivr.net/npm/three-globe@2.45.0/example/img/earth-night.jpg', undefined, undefined, textureFailure);
+      dayMap.anisotropy = nightMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      earthMaterial = new THREE.ShaderMaterial({
+        uniforms: { dayMap: { value: dayMap }, nightMap: { value: nightMap }, sunDirection: { value: new THREE.Vector3(1,0,0) } },
+        vertexShader: `
+          varying vec2 vUv;
+          varying vec3 vEarthNormal;
+          varying vec3 vViewNormal;
+          varying vec3 vViewPosition;
+          void main() {
+            vUv = uv;
+            vEarthNormal = normalize(normal);
+            vViewNormal = normalize(normalMatrix * normal);
+            vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);
+            vViewPosition = -viewPosition.xyz;
+            gl_Position = projectionMatrix * viewPosition;
+          }`,
+        fragmentShader: `
+          uniform sampler2D dayMap;
+          uniform sampler2D nightMap;
+          uniform vec3 sunDirection;
+          varying vec2 vUv;
+          varying vec3 vEarthNormal;
+          varying vec3 vViewNormal;
+          varying vec3 vViewPosition;
+          void main() {
+            float sunlight = dot(normalize(vEarthNormal), normalize(sunDirection));
+            float daylight = smoothstep(-0.08, 0.12, sunlight);
+            vec3 day = texture2D(dayMap, vUv).rgb;
+            vec3 night = texture2D(nightMap, vUv).rgb;
+            day *= 0.42 + 0.58 * sqrt(max(sunlight, 0.0));
+            vec3 color = mix(night * 0.85, day, daylight);
+            float rim = pow(1.0 - max(dot(normalize(vViewNormal), normalize(vViewPosition)), 0.0), 4.0);
+            color += vec3(0.12, 0.34, 0.62) * rim * (0.18 + 0.42 * daylight);
+            gl_FragColor = vec4(color, 1.0);
+          }`
       });
-      scene.add(new THREE.AmbientLight(0xffffff, 0.15));
-      var dl = new THREE.DirectionalLight(0xaaaaff, 0.35);
-      dl.position.set(5, 3, 5);
-      scene.add(dl);
-      globeGroup.add(new THREE.Mesh(new THREE.SphereGeometry(RADIUS * 1.045, 32, 32), atmMat));
+      globeGroup.add(new THREE.Mesh(new THREE.SphereGeometry(RADIUS, 96, 64), earthMaterial));
 
       globeGroup.rotation.y = -1.1;
 
@@ -374,7 +272,7 @@
 
     function animate() {
       requestAnimationFrame(animate);
-      var idle = !dragging && (Date.now() - lastInteract > 3000);
+      var idle = !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !dragging && (Date.now() - lastInteract > 3000);
       if (!dragging) {
         if (Math.abs(vel.x) > 0.00004 || Math.abs(vel.y) > 0.00004) {
           globeGroup.rotation.x = clampX(globeGroup.rotation.x + vel.x);
@@ -384,12 +282,18 @@
           globeGroup.rotation.y += AUTO_SPEED;
         }
       }
+      if (Date.now() - lastSunUpdate > 30000) {
+        var sun = solarPosition(new Date());
+        earthMaterial.uniforms.sunDirection.value.copy(ll2v(sun.lat, sun.lon, 1));
+        lastSunUpdate = Date.now();
+      }
       updatePins();
       renderer.render(scene, camera);
     }
 
     function makePinEl() {
-      var el = document.createElement('div');
+      var el = document.createElement('button');
+      el.type = 'button';
       el.className = 'globe-pin';
       el.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -456,6 +360,7 @@
         el.title = isCluster
           ? c.indices.map(function(i){return locations[i].name;}).join(', ')
           : locations[c.indices[0]].name;
+        el.setAttribute('aria-label', el.title);
         el.dataset.ci = ci;
         el.style.visibility = 'visible';
         el.style.left = c.x + 'px';
@@ -471,6 +376,7 @@
       document.getElementById('popup-note').textContent    = loc.note;
 
       var img = document.getElementById('popup-img');
+      img.alt = loc.name + ', ' + loc.country;
       var ph  = document.getElementById('popup-placeholder');
       img.style.display = 'none';
       ph.style.display  = 'none';
@@ -491,7 +397,7 @@
         var pW = popup.offsetWidth;
         var pH = popup.offsetHeight;
         var rect  = pinEl.getBoundingClientRect();
-        var cRect = document.getElementById('globe-container').getBoundingClientRect();
+        var cRect = {left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight};
 
         // Clamp against the globe card's own bounds first, then the viewport,
         // so the popup can never render outside the card or off-screen.
@@ -524,21 +430,16 @@
     }, { threshold: 0.1 });
 
     document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePopup(); });
+      document.getElementById('travel-popup').addEventListener('click', function(e) { e.stopPropagation(); });
+
       var sec = document.getElementById('travel');
       if (sec) globeObserver.observe(sec);
     });
   })();
   </script>
 
-  <script>
-    // Scroll fade-in
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('show');
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  </script>
-
+  <script src="torch.js"></script>
+  <script src="selection-fire.js"></script>
 </body>
 </html>

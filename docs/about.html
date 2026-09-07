@@ -43,9 +43,9 @@
             bg: '#0d0f1e',
             surface: '#13152a',
             surface2: '#1a1d35',
-            accent: '#1d4ed8',
-            accent2: '#1d4ed8',
-            muted: '#7878a0',
+            accent: '#8eafff',
+            accent2: '#8eafff',
+            muted: '#a2a9b1',
           },
         }
       }
@@ -53,17 +53,13 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="torch.css">
+  <link rel="stylesheet" href="selection-fire.css">
 </head>
 <body class="text-gray-300 min-h-screen relative">
 
   <!-- Floating Nav -->
-  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 nav-glass rounded-full px-2 py-1.5 flex gap-0.5" style="max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-    <a href="index.html" class="nav-link">Home</a>
-    <a href="about.html" class="nav-link active">About</a>
-    <a href="skills.html" class="nav-link">S-Kills</a>
-    <a href="experience.html" class="nav-link">Experience</a>
-    <a href="showcase.html" class="nav-link">Showcase</a>
-  </nav>
+  <a class="home-return" href="index.html" aria-label="Go back to home page">← Home</a>
 
   <main class="relative z-10 max-w-3xl mx-auto px-5 pt-28 pb-24 flex flex-col gap-6">
 
@@ -78,15 +74,15 @@
 
         <!-- Background -->
         <div class="mb-7">
-          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-3" style="color:#7878a0">Background</p>
-          <p class="leading-relaxed mb-3" style="color:#7878a0">
+          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-3" style="color:#a2a9b1">Background</p>
+          <p class="leading-relaxed mb-3" style="color:#a2a9b1">
             Hi, I'm Aditya. Born and raised in the serene hills of
             <span class="text-gray-200 font-medium">Ramechhap, Nepal</span> —
             a small district nestled in the mountains, far from city noise. I moved to the
             <span class="text-gray-200 font-medium">USA in fall 2023</span> to pursue computer science,
             trading mountain trails for a laptop and a whole lot of caffeine.
           </p>
-          <p class="leading-relaxed" style="color:#7878a0">
+          <p class="leading-relaxed" style="color:#a2a9b1">
             Currently living in <span class="text-gray-200 font-medium">Baltimore, MD</span>,
             figuring things out one commit at a time.
           </p>
@@ -95,20 +91,21 @@
         <div class="grad-line mb-7" style="width:24px;"></div>
 
         <!-- Education -->
+        <span id="education"></span>
         <div class="mb-7">
-          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-4" style="color:#7878a0">Education</p>
+          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-4" style="color:#a2a9b1">Education</p>
 
           <div class="flex flex-col gap-4">
             <!-- CCBC -->
-            <div class="rounded-xl p-4" style="background:#1c1c22;border:1px solid #ffffff;">
+            <div class="rounded-xl p-4" style="background:#171c21;border:1px solid #353c44;">
               <div class="flex items-start justify-between gap-3 flex-wrap">
                 <div>
                   <p class="font-syne font-bold text-white text-sm leading-snug">
                     A.S. Computer Science
                   </p>
-                  <p class="text-sm mt-0.5" style="color:#1d4ed8">Community College of Baltimore County</p>
+                  <p class="text-sm mt-0.5" style="color:#8eafff">Community College of Baltimore County</p>
                 </div>
-                <span class="text-xs px-3 py-1 rounded-full border whitespace-nowrap flex-shrink-0" style="color:#7878a0;background:#1c1c22;border-color:#ffffff">May 2025</span>
+                <span class="text-xs px-3 py-1 rounded-full border whitespace-nowrap flex-shrink-0" style="color:#a2a9b1;background:#171c21;border-color:#353c44">May 2025</span>
               </div>
               <div class="flex flex-wrap gap-2 mt-3">
                 <span class="tag">4.0 GPA</span>
@@ -117,15 +114,15 @@
             </div>
 
             <!-- Morgan State -->
-            <div class="rounded-xl p-4" style="background:#1c1c22;border:1px solid #ffffff;">
+            <div class="rounded-xl p-4" style="background:#171c21;border:1px solid #353c44;">
               <div class="flex items-start justify-between gap-3 flex-wrap">
                 <div>
                   <p class="font-syne font-bold text-white text-sm leading-snug">
                     B.S. Computer Science
                   </p>
-                  <p class="text-sm mt-0.5" style="color:#1d4ed8">Morgan State University</p>
+                  <p class="text-sm mt-0.5" style="color:#8eafff">Morgan State University</p>
                 </div>
-                <span class="text-xs px-3 py-1 rounded-full border whitespace-nowrap flex-shrink-0" style="color:#7878a0;background:#1c1c22;border-color:#ffffff">Expected May 2027</span>
+                <span class="text-xs px-3 py-1 rounded-full border whitespace-nowrap flex-shrink-0" style="color:#a2a9b1;background:#171c21;border-color:#353c44">Expected May 2027</span>
               </div>
             </div>
           </div>
@@ -135,8 +132,8 @@
 
         <!-- What drives me -->
         <div class="mb-7">
-          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-3" style="color:#7878a0">What drives me</p>
-          <p class="leading-relaxed mb-3" style="color:#7878a0">
+          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-3" style="color:#a2a9b1">What drives me</p>
+          <p class="leading-relaxed mb-3" style="color:#a2a9b1">
             I'm drawn to the intersection of
             <span class="text-gray-200 font-medium">AI &amp; machine learning</span> and
             <span class="text-gray-200 font-medium">mathematics</span> — where abstract theory
@@ -144,7 +141,7 @@
             about training a model that predicts something meaningful, or writing an algorithm that
             just <em>clicks</em>.
           </p>
-          <p class="leading-relaxed" style="color:#7878a0">
+          <p class="leading-relaxed" style="color:#a2a9b1">
             I build things that solve real problems — not for the sake of building, but because good
             tools genuinely make people's lives easier.
           </p>
@@ -154,12 +151,12 @@
 
         <!-- Beyond the screen -->
         <div class="mb-8">
-          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-3" style="color:#7878a0">Beyond the screen</p>
-          <p class="leading-relaxed mb-4" style="color:#7878a0">
+          <p class="font-syne text-xs font-bold tracking-widest uppercase mb-3" style="color:#a2a9b1">Beyond the screen</p>
+          <p class="leading-relaxed mb-4" style="color:#a2a9b1">
             When I'm not in front of a computer, you'll probably find me in the water (swimming),
             on a pitch playing soccer, or planning my next trip somewhere.
           </p>
-          <p class="leading-relaxed" style="color:#7878a0">
+          <p class="leading-relaxed" style="color:#a2a9b1">
             I'm a huge
             <span class="text-gray-200 font-medium">FC Barcelona</span> fan —
             and yes, I've seen
@@ -169,7 +166,7 @@
         </div>
 
         <!-- CTA -->
-        <div class="flex flex-wrap gap-3 pt-2" style="border-top:1px solid #ffffff;">
+        <div class="flex flex-wrap gap-3 pt-2" style="border-top:1px solid #353c44;">
           <a href="showcase.html" class="btn-primary">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             See What I've Built
@@ -212,5 +209,7 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
 
+  <script src="torch.js"></script>
+  <script src="selection-fire.js"></script>
 </body>
 </html>

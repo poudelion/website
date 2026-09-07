@@ -1,0 +1,60 @@
+/* A pointer-transparent spotlight: actual page content remains interactive. */
+.torch-light {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2147483646;
+  opacity: 0;
+  visibility: hidden;
+
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+.torch-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* The bright source sits on the cursor's flame, with light rising from it. */
+  background:
+    radial-gradient(ellipse 13px 18px at 50% 86%, #ffe9aa 0%, rgba(255,211,112,.85) 35%, transparent 100%),
+    radial-gradient(ellipse 43px 65px at 50% 72%, rgba(255,222,155,.82) 0%, rgba(255,207,113,.58) 28%, rgba(240,172,62,.24) 58%, transparent 86%);
+  filter: blur(4px);
+  transform-origin: 50% 86%;
+  animation: torch-flicker 2.7s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.torch-light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-conic-gradient(from -43deg at 50% 86%, transparent 0deg 12deg, rgba(255,213,122,.22) 16deg 21deg, transparent 26deg 31deg);
+  mask-image: radial-gradient(ellipse 42px 70px at 50% 85%, #000 0%, rgba(0,0,0,.65) 38%, transparent 80%);
+  clip-path: polygon(50% 87%, 5% 0, 95% 0);
+  filter: blur(3px);
+  transform-origin: 50% 86%;
+  animation: torch-flicker 3.6s ease-in-out infinite reverse;
+  animation-play-state: paused;
+}
+.torch-light.is-visible::before,
+.torch-light.is-visible::after { animation-play-state: running; }
+@keyframes torch-flicker {
+  0%, 100% { transform: rotate(-4deg) scale(.94, 1); }
+  33% { transform: rotate(3deg) scale(1, .95); }
+  66% { transform: rotate(-1deg) scale(.96, 1.03); }
+}
+.torch-light.is-visible { opacity: 1; visibility: visible; }
+@media (hover: hover) and (pointer: fine) {
+  html.torch-enabled, html.torch-enabled * {
+    cursor: url('torch-cursor.svg') 14 9, auto !important;
+  }
+  html.torch-enabled input, html.torch-enabled textarea,
+  html.torch-enabled [contenteditable="true"] { cursor: text !important; }
+}
+@media (forced-colors: active), (prefers-reduced-motion: reduce) {
+  .torch-light { display: none; }
+  html.torch-enabled, html.torch-enabled * { cursor: auto !important; }
+}
