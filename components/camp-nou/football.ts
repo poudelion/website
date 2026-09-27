@@ -64,3 +64,7 @@ export function advanceAdi(ball: BallState, player: {x:number;z:number;facing:nu
     if(player.z < -34 && Math.abs(player.x)<12 && ball.pickupDelay===0)shootBall(ball,Math.atan2(-ball.x,-53-ball.z),"adi");
   }
 }
+
+export function tackleBall(ball: BallState, x:number, z:number) {
+  if(Math.hypot(x-ball.x,z-ball.z)<=4.5)takeBall(ball,ball.x,ball.z);
+}

@@ -1,6 +1,6 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
-import { createBall, takeBall, shootBall, stepBall, advanceAdi, matchWinner } from './football.ts';
+import { createBall, takeBall, shootBall, stepBall, advanceAdi, matchWinner, tackleBall } from './football.ts';
 
 test('possession requires proximity and a shot cannot be immediately collected', () => {
   const ball=createBall(); takeBall(ball,20,20); assert.equal(ball.owner,'adi');
@@ -53,4 +53,11 @@ for(const scorer of ['visitor','adi'])test(`${scorer} wins at five and no more p
  for(let i=0;i<100;i++){stepBall(ball,.05);takeBall(ball,ball.x,ball.z);advanceAdi(ball,{x:0,z:0,facing:0},.05);shootBall(ball,0);}
  assert.deepEqual(ball,final);
  Object.assign(ball,createBall());assert.equal(matchWinner(ball),null);assert.equal(ball.goals,0);assert.equal(ball.adiGoals,0);
+});
+
+test('touch tackle reaches nearby balls but respects distance and match end',()=>{
+ const ball=createBall();tackleBall(ball,5,5);assert.equal(ball.owner,'adi');
+ tackleBall(ball,4,5);assert.equal(ball.owner,'visitor');
+ Object.assign(ball,createBall(),{goals:5});tackleBall(ball,0,5);assert.equal(ball.owner,'adi');
+ Object.assign(ball,createBall(),{pickupDelay:1});tackleBall(ball,0,5);assert.equal(ball.owner,'adi');
 });
