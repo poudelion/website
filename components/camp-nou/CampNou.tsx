@@ -326,7 +326,6 @@ export default function CampNou() {
           <label htmlFor="player-name">Name on your jersey<input id="player-name" name="playerName" maxLength={16} required value={playerName} onChange={e=>{setPlayerName(e.target.value);setEntryError("");}} autoComplete="nickname" placeholder="Your name" aria-describedby="kit-reservation email-notice"/></label>
           <label htmlFor="player-number">Favourite number<input id="player-number" name="playerNumber" type="text" inputMode="numeric" maxLength={2} required value={playerNumber} onChange={e=>{setPlayerNumber(e.target.value);setEntryError("");}} placeholder="1–99" aria-describedby="kit-reservation email-notice"/></label>
           <p id="kit-reservation" className={styles.reservation}>Adi and #11 are reserved for the home player.</p>
-          <p id="email-notice" className={styles.reservation}>When you join, your chosen name and jersey number will be emailed to Adi. Nicknames are welcome.</p>
           {entryError&&<p role="alert" className={styles.entryError}>{entryError}</p>}
           <button className={styles.enter} type="submit" disabled={!loaded||failed}>Join the pitch <ArrowRight size={18}/></button>
         </form>
