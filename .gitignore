@@ -2,3 +2,8 @@
 .DS_Store
 worker/.wrangler/
 worker/node_modules/
+
+node_modules/
+.next/
+out/
+*.tsbuildinfo

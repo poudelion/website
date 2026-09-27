@@ -1,0 +1,25 @@
+{
+  "name": "aditya-home-ground",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/prepare-pages.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test components/camp-nou/*.test.mjs"
+  },
+  "dependencies": {
+    "next": "^16.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.186.0",
+    "lucide-react": "^1.47.0"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0"
+  }
+}
