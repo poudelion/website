@@ -6,7 +6,7 @@ import * as THREE from "three";
 import styles from "./camp.module.css";
 import { notifyPitchJoin } from "./pitch-notification";
 import contactConfig from "./contact-config.json";
-import { createBall, shootBall, takeBall, stepBall, advanceAdi } from "./football";
+import { createBall, shootBall, takeBall, stepBall, advanceAdi, matchWinner } from "./football";
 
 const stops = [
   { name: "About me", label: "THE PLAYER", number: "01", x: -25, z: 15, color: "#f5d86e", title: "From the hills of Nepal to a world of ideas.", text: "I’m Aditya Raj Poudel, a computer science student at Morgan State University, based in Baltimore. Born in Ramechhap, Nepal, I moved to the USA in 2023. I build practical tools at the intersection of AI, machine learning, and mathematics.", note: "A.S. Computer Science · CCBC · 4.0 GPA · 2025 | B.S. Computer Science · Morgan State · Expected 2027" },
@@ -16,7 +16,7 @@ const stops = [
 ];
 
 type Kit = { name: string; number: string };
-type Controller = { shoot: () => void; dress: (kit: Kit) => void; teleport: (i: number) => void; key: (key: string, pressed: boolean) => void };
+type Controller = { restart: () => void; shoot: () => void; dress: (kit: Kit) => void; teleport: (i: number) => void; key: (key: string, pressed: boolean) => void };
 
 export default function CampNou() {
   const mount = useRef<HTMLDivElement>(null);
@@ -34,6 +34,7 @@ export default function CampNou() {
   const beginExploring = (destination?: number) => {
     setSelected(null); setHelp(false);
     if (!kit) { pendingStop.current = destination ?? null; setEntryError(""); setJoining(true); return; }
+    if (!exploring) controller.current?.restart();
     setExploring(true);
     if (destination !== undefined) controller.current?.teleport(destination);
   };
@@ -60,6 +61,7 @@ export default function CampNou() {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
   const [visited, setVisited] = useState<number[]>([]);
+  const [winner, setWinner] = useState<"visitor" | "adi" | null>(null);
   const [goals, setGoals] = useState(0);
   const [adiGoals, setAdiGoals] = useState(0);
   const [scorer, setScorer] = useState("visitor");
@@ -213,16 +215,21 @@ export default function CampNou() {
     const football=createBall();
     let matchStarted=false, gameTime=0;
     const shoot=()=>{if(walking.current&&selectedRef.current===null)shootBall(football,avatar.rotation.y);};
-    const keys=new Set<string>(); let yaw=0,dragging=false,lastX=0,nearIndex:number|null=null;
+    const keys=new Set<string>(); let yaw=0,cameraYaw=0,moving=false,dragging=false,lastX=0,nearIndex:number|null=null;
     const onKey=(e:KeyboardEvent)=>{if(e.target instanceof HTMLInputElement || selectedRef.current!==null)return;if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key))e.preventDefault();keys.add(e.key.toLowerCase());if(e.code==="Space"&&!e.repeat)shoot();if(e.key.toLowerCase()==="e"&&nearIndex!==null&&walking.current&&selectedRef.current===null){setSelected(nearIndex);setVisited(v=>v.includes(nearIndex!)?v:[...v,nearIndex!]);}if(e.key==="Escape"){setSelected(null);setHelp(false);setJoining(false);}};
     const onUp=(e:KeyboardEvent)=>keys.delete(e.key.toLowerCase());
     const clear=()=>{keys.clear();dragging=false;};
     window.addEventListener("keydown",onKey);window.addEventListener("keyup",onUp);window.addEventListener("blur",clear);
     const down=(e:PointerEvent)=>{dragging=true;lastX=e.clientX;renderer.domElement.setPointerCapture(e.pointerId);};
-    const move=(e:PointerEvent)=>{if(dragging){yaw-=(e.clientX-lastX)*.006;lastX=e.clientX;}};
+    const move=(e:PointerEvent)=>{if(dragging){const turn=(e.clientX-lastX)*.006;yaw-=turn;cameraYaw-=turn;lastX=e.clientX;}};
     const up=()=>{dragging=false;};
     renderer.domElement.addEventListener("pointerdown",down);renderer.domElement.addEventListener("pointermove",move);renderer.domElement.addEventListener("pointerup",up);renderer.domElement.addEventListener("pointercancel",up);
-    controller.current={shoot,dress:(kit)=>{visitor.dress(kit);avatar.visible=true;matchStarted=true;avatar.position.set(0,.3,10);avatar.rotation.y=Math.PI;},teleport:(i)=>{if(football.owner==="visitor"){football.owner="free";football.pickupDelay=.3;}avatar.position.set(stops[i].x,.3,stops[i].z+5);yaw=0;},key:(k,p)=>{if(p)keys.add(k);else keys.delete(k);}};
+    controller.current={restart:()=>{
+      Object.assign(football,createBall());football.pickupDelay=1.2;
+      adi.group.position.set(0,.3,5);avatar.position.set(0,.3,10);avatar.rotation.y=Math.PI;
+      yaw=0;cameraYaw=0;moving=false;keys.clear();
+      setWinner(null);setGoals(0);setAdiGoals(0);setGoalCelebration(false);
+    },shoot,dress:(kit)=>{visitor.dress(kit);avatar.visible=true;matchStarted=true;avatar.position.set(0,.3,10);avatar.rotation.y=Math.PI;cameraYaw=0;yaw=0;moving=false;},teleport:(i)=>{if(football.owner==="visitor"){football.owner="free";football.pickupDelay=.3;}avatar.position.set(stops[i].x,.3,stops[i].z+5);yaw=0;cameraYaw=0;avatar.rotation.y=Math.PI;moving=false;},key:(k,p)=>{if(p)keys.add(k);else keys.delete(k);}};
     const resize=()=>{const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();};
     const observer=new ResizeObserver(resize);observer.observe(host);resize();
     let previousTime=performance.now(),elapsed=0;let frame=0,lastUi=0; const target=new THREE.Vector3(), look=new THREE.Vector3(0,2,0);
@@ -230,7 +237,7 @@ export default function CampNou() {
       frame=requestAnimationFrame(animate);const now=performance.now(),dt=Math.min((now-previousTime)/1000,.05);previousTime=now;elapsed+=dt;const t=elapsed;
       const playing=matchStarted&&walking.current&&selectedRef.current===null;
       if(playing||!matchStarted)gameTime+=dt;
-      if(!playing)keys.clear();
+      if(!playing){keys.clear();moving=false;}
       const lap=gameTime*.28;
       if(!matchStarted){adi.group.position.set(Math.sin(lap)*7,.3,Math.cos(lap)*5);
       adi.group.rotation.y=Math.atan2(Math.cos(lap)*7,-Math.sin(lap)*5);}
@@ -239,11 +246,11 @@ export default function CampNou() {
       if(walking.current&&selectedRef.current===null){
         let dx=(keys.has("d")||keys.has("arrowright")?1:0)-(keys.has("a")||keys.has("arrowleft")?1:0);
         let dz=(keys.has("s")||keys.has("arrowdown")?1:0)-(keys.has("w")||keys.has("arrowup")?1:0);
-        if(dx||dz){const length=Math.hypot(dx,dz);dx/=length;dz/=length;const vx=dx*Math.cos(yaw)+dz*Math.sin(yaw),vz=dz*Math.cos(yaw)-dx*Math.sin(yaw);const speed=keys.has("shift")?15:8;avatar.position.x=THREE.MathUtils.clamp(avatar.position.x+vx*dt*speed,-37,37);avatar.position.z=THREE.MathUtils.clamp(avatar.position.z+vz*dt*speed,-55,55);avatar.rotation.y=Math.atan2(vx,vz);legs[0].rotation.x=Math.sin(t*12)*.6;legs[1].rotation.x=-Math.sin(t*12)*.6;}else legs.forEach(l=>l.rotation.x=0);
+        if(dx||dz){if(!moving){yaw=cameraYaw;moving=true;}const length=Math.hypot(dx,dz);dx/=length;dz/=length;const vx=dx*Math.cos(yaw)+dz*Math.sin(yaw),vz=dz*Math.cos(yaw)-dx*Math.sin(yaw);const speed=keys.has("shift")?15:8;avatar.position.x=THREE.MathUtils.clamp(avatar.position.x+vx*dt*speed,-37,37);avatar.position.z=THREE.MathUtils.clamp(avatar.position.z+vz*dt*speed,-55,55);avatar.rotation.y=Math.atan2(vx,vz);legs[0].rotation.x=Math.sin(t*12)*.6;legs[1].rotation.x=-Math.sin(t*12)*.6;}else {moving=false;legs.forEach(l=>l.rotation.x=0);}
       }
       if(playing||!matchStarted){
         const event=stepBall(football,dt);
-        if(event==="goal"){setGoals(football.goals);setAdiGoals(football.adiGoals);setScorer(football.lastTouch);setGoalCelebration(true);}
+        if(event==="goal"){setWinner(matchWinner(football));setGoals(football.goals);setAdiGoals(football.adiGoals);setScorer(football.lastTouch);setGoalCelebration(true);}
         if(event==="reset"){setGoalCelebration(false);adi.group.position.set(0,.3,5);football.pickupDelay=1.2;}
         if(football.owner==="adi"&&!matchStarted){
           const lead=lap+.22+Math.sin(gameTime*3)*.025;
@@ -263,7 +270,13 @@ export default function CampNou() {
         ball.position.set(football.x,.58,football.z);
         ball.rotation.x+=travel/.35;ball.rotation.z-=travel/.7;
       }
-      if(walking.current){target.set(avatar.position.x+Math.sin(yaw)*13,9,avatar.position.z+Math.cos(yaw)*13);look.lerp(new THREE.Vector3(avatar.position.x,2,avatar.position.z),1-Math.exp(-dt*5));}
+      if(walking.current){
+        if(moving&&!dragging){
+          const desired=avatar.rotation.y+Math.PI;
+          const difference=Math.atan2(Math.sin(desired-cameraYaw),Math.cos(desired-cameraYaw));
+          cameraYaw+=difference*(1-Math.exp(-dt*6));
+        }
+        target.set(avatar.position.x+Math.sin(cameraYaw)*13,9,avatar.position.z+Math.cos(cameraYaw)*13);look.lerp(new THREE.Vector3(avatar.position.x,2,avatar.position.z),1-Math.exp(-dt*5));}
       else {target.set(Math.sin(.67+yaw)*164,86,Math.cos(.67+yaw)*164);look.lerp(new THREE.Vector3(0,3,0),1-Math.exp(-dt*4));}
       camera.position.lerp(target,1-Math.exp(-dt*3));camera.lookAt(look);
       markers.forEach((m,i)=>{m.rotation.y=t*.5;m.position.y=5.7+Math.sin(t*1.5+i)*.25;});
@@ -295,11 +308,12 @@ export default function CampNou() {
     {exploring&&<><div className={styles.controls}><span><kbd>W</kbd><span><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span></span><p>Move around<br/><small>Drag to look · Shift to run · Space to shoot</small></p></div><div className={styles.minimap}><div className={styles.mapPitch}><i/><span aria-label="Ball" style={{left:`${(ballPosition.x+38)/76*100}%`,top:`${(ballPosition.z+57)/114*100}%`,background:"#ffe171",width:7,height:7}}/><b style={{left:`${(position.x+38)/76*100}%`,top:`${(position.z+57)/114*100}%`}}/>{stops.map(s=><span key={s.name} style={{left:`${(s.x+38)/76*100}%`,top:`${(s.z+57)/114*100}%`,background:s.color}}/>)}</div><small>YOU ARE HERE</small></div><div className={styles.touchControls}>{[["w","↑"],["a","←"],["s","↓"],["d","→"]].map(([key,label])=><button key={key} aria-label={`Move ${key}`} onPointerDown={e=>{e.currentTarget.setPointerCapture(e.pointerId);controller.current?.key(key,true);}} onPointerUp={()=>controller.current?.key(key,false)} onPointerCancel={()=>controller.current?.key(key,false)}>{label}</button>)}</div></>}
     {exploring&&kit&&<aside className={styles.matchHud} aria-label="Football game">
       <div><span>{kit.name} <small>#{kit.number}</small></span><strong>{goals} – {adiGoals} <small>ADI</small></strong></div>
-      <p>{selected!==null||help?"Game paused · take your time exploring":goalCelebration?"Goal! Adi takes the next kickoff.":possession==="visitor"?"Your ball. Face either goal and shoot.":possession==="adi"?"Run up to Adi’s ball to take possession.":"Loose ball! Run up to it to collect."}</p>
-      <button onClick={()=>controller.current?.shoot()} disabled={possession!=="visitor"||selected!==null||help||goalCelebration}>Shoot <kbd>SPACE</kbd></button>
+      <p>{selected!==null||help?"Game paused · take your time exploring":winner?(winner==="visitor"?"You win! First to five. Explore or play again.":"Adi wins this match. Ready for a rematch?"):goalCelebration?"Goal! Adi takes the next kickoff.":possession==="visitor"?"Your ball. Face either goal and shoot.":possession==="adi"?"Run up to Adi’s ball to take possession.":"Loose ball! Run up to it to collect."}</p>
+      <small>FIRST TO 5</small>
+      {winner?<button onClick={()=>controller.current?.restart()}>Play again</button>:<button onClick={()=>controller.current?.shoot()} disabled={possession!=="visitor"||selected!==null||help||goalCelebration}>Shoot <kbd>SPACE</kbd></button>}
     </aside>}
     {exploring&&fieldPassVisible&&kit&&<p className={styles.notificationNotice} role="status">Field pass issued · {kit.name} #{kit.number}<br/>Welcome to the pitch. Make it yours.</p>}
-    {exploring&&goalCelebration&&<div className={styles.goalToast} role="status">GOAL! <span>{scorer==="adi"?"Adi scores! Win it back.":`Nice finish, ${kit?.name}.`}</span></div>}
+    {exploring&&goalCelebration&&!winner&&<div className={styles.goalToast} role="status">GOAL! <span>{scorer==="adi"?"Adi scores! Win it back.":`Nice finish, ${kit?.name}.`}</span></div>}
     {!loaded&&!failed&&<div className={styles.loading}>Opening the gates…</div>}
     {failed&&<div className={styles.loading}>The 3D view requires WebGL. You can still explore the full portfolio using Learn more.</div>}
     {joining&&<div className={styles.modalBackdrop} onClick={()=>setJoining(false)}>
@@ -318,6 +332,6 @@ export default function CampNou() {
         </form>
       </section>
     </div>}
-    {(selected!==null||help)&&<div className={styles.modalBackdrop} onClick={()=>{setSelected(null);setHelp(false);setJoining(false);}}><section role="dialog" aria-modal="true" aria-label={help?"How to explore":stops[selected!].name} className={styles.modal} onClick={e=>e.stopPropagation()}><button autoFocus className={styles.close} aria-label="Close" onClick={()=>{setSelected(null);setHelp(false);setJoining(false);}}><X/></button>{help?<><div className={styles.eyebrow}>YOUR MATCHDAY GUIDE</div><h2>The pitch is yours.</h2><p>Use WASD or arrow keys to move. Hold Shift to run. Run up to the ball to take it from Adi, then face either goal and press Space (or tap Shoot). Goals count automatically, and Adi restarts play. Drag the stadium to look around. On a phone, use the arrow buttons.</p><p>Walk to a glowing marker and press E to open it, or use Learn more to browse the full portfolio. The view button switches between aerial and on-foot views. The game pauses while you read a portfolio section or use the aerial view. Your score stays with you.</p><button className={styles.enter} onClick={()=>beginExploring()}>Let’s explore <ArrowRight size={18}/></button></>:<><div className={styles.eyebrow}>{stops[selected!].number} / {stops[selected!].label}</div><h2>{stops[selected!].title}</h2><p>{stops[selected!].text}</p><div className={styles.placeholder}>{stops[selected!].note}</div>{selected===1&&<div className={styles.projectLinks}>{[["ExEv","Evacuation simulation & routing","exev"],["Homicide Dashboard","Automated data scraper & visualizer","homicide-dashboard"],["FINAD","Financial analysis dashboard","finad"],["CourseMonitor","CourseMonitor","coursemonitor"],["SUBS","SUBS","subs"],["CopyIt","Copy text from anywhere on screen","copyit"],["Let’s Football","A game for the beautiful game","lets-football"]].map(([name,description,slug])=><a key={slug} href={`/portfolio/projects/${slug}.html`} target="_blank" rel="noreferrer"><span>{name}<small>{description}</small></span><ArrowUpRight size={17}/></a>)}</div>}{selected===3&&<div className={styles.socialLinks}><a href="mailto:adityarajpoudel@gmail.com">Email me <ArrowUpRight size={16}/></a><a href="https://github.com/poudelion" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16}/></a><a href="https://linkedin.com/in/aditya-poudel-526a66277/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={16}/></a></div>}{selected===0&&<p>Off screen: swimming, soccer, and the next adventure. A lifelong Barça fan — and yes, I’ve seen Messi play live.</p>}<button className={styles.enter} onClick={()=>beginExploring(selected!)}>Visit this part of the pitch <ArrowRight size={18}/></button></>}</section></div>}
+    {(selected!==null||help)&&<div className={styles.modalBackdrop} onClick={()=>{setSelected(null);setHelp(false);setJoining(false);}}><section role="dialog" aria-modal="true" aria-label={help?"How to explore":stops[selected!].name} className={styles.modal} onClick={e=>e.stopPropagation()}><button autoFocus className={styles.close} aria-label="Close" onClick={()=>{setSelected(null);setHelp(false);setJoining(false);}}><X/></button>{help?<><div className={styles.eyebrow}>YOUR MATCHDAY GUIDE</div><h2>The pitch is yours.</h2><p>Use WASD or arrow keys to move. Hold Shift to run. Run up to the ball to take it from Adi, then face either goal and press Space (or tap Shoot). First to five goals wins. Goals count automatically, and Adi restarts play between goals. Drag the stadium to look around. On a phone, use the arrow buttons.</p><p>Walk to a glowing marker and press E to open it, or use Learn more to browse the full portfolio. The view button switches between aerial and on-foot views. The game pauses while you read a portfolio section. Stepping back onto the pitch from the aerial view starts a fresh match.</p><button className={styles.enter} onClick={()=>beginExploring()}>Let’s explore <ArrowRight size={18}/></button></>:<><div className={styles.eyebrow}>{stops[selected!].number} / {stops[selected!].label}</div><h2>{stops[selected!].title}</h2><p>{stops[selected!].text}</p><div className={styles.placeholder}>{stops[selected!].note}</div>{selected===1&&<div className={styles.projectLinks}>{[["ExEv","Evacuation simulation & routing","exev"],["Homicide Dashboard","Automated data scraper & visualizer","homicide-dashboard"],["FINAD","Financial analysis dashboard","finad"],["CourseMonitor","CourseMonitor","coursemonitor"],["SUBS","SUBS","subs"],["CopyIt","Copy text from anywhere on screen","copyit"],["Let’s Football","A game for the beautiful game","lets-football"]].map(([name,description,slug])=><a key={slug} href={`/portfolio/projects/${slug}.html`} target="_blank" rel="noreferrer"><span>{name}<small>{description}</small></span><ArrowUpRight size={17}/></a>)}</div>}{selected===3&&<div className={styles.socialLinks}><a href="mailto:adityarajpoudel@gmail.com">Email me <ArrowUpRight size={16}/></a><a href="https://github.com/poudelion" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={16}/></a><a href="https://linkedin.com/in/aditya-poudel-526a66277/" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={16}/></a></div>}{selected===0&&<p>Off screen: swimming, soccer, and the next adventure. A lifelong Barça fan — and yes, I’ve seen Messi play live.</p>}<button className={styles.enter} onClick={()=>beginExploring(selected!)}>Visit this part of the pitch <ArrowRight size={18}/></button></>}</section></div>}
   </main>;
 }

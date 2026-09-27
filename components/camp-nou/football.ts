@@ -4,8 +4,12 @@ export type BallState = {
   pickupDelay: number; resetIn: number; goals: number; adiGoals: number; lastTouch: "adi" | "visitor";
 };
 export const createBall = (): BallState => ({ x: 0, z: 5, vx: 0, vz: 0, owner: "adi", pickupDelay: 0, resetIn: 0, goals: 0, adiGoals: 0, lastTouch: "adi" });
+export const WINNING_SCORE = 5;
+export function matchWinner(ball: BallState): "visitor" | "adi" | null {
+  return ball.goals >= WINNING_SCORE ? "visitor" : ball.adiGoals >= WINNING_SCORE ? "adi" : null;
+}
 export function shootBall(ball: BallState, facing: number, player: "adi" | "visitor" = "visitor") {
-  if (ball.owner !== player || ball.resetIn > 0) return;
+  if (matchWinner(ball) || ball.owner !== player || ball.resetIn > 0) return;
   ball.lastTouch = player;
   ball.owner = "free";
   ball.vx = Math.sin(facing) * 34;
@@ -13,11 +17,12 @@ export function shootBall(ball: BallState, facing: number, player: "adi" | "visi
   ball.pickupDelay = .55;
 }
 export function takeBall(ball: BallState, x: number, z: number, player: "adi" | "visitor" = "visitor") {
-  if (ball.owner !== player && ball.resetIn <= 0 && ball.pickupDelay <= 0 && Math.hypot(x-ball.x,z-ball.z) < 2) {
-    ball.owner = player; ball.lastTouch = player; ball.pickupDelay = 1.2; ball.vx = 0; ball.vz = 0;
+  if (!matchWinner(ball) && ball.owner !== player && ball.resetIn <= 0 && ball.pickupDelay <= 0 && Math.hypot(x-ball.x,z-ball.z) < (player === "visitor" ? 3.5 : 1.25)) {
+    ball.owner = player; ball.lastTouch = player; ball.pickupDelay = player === "visitor" ? 2.5 : .65; ball.vx = 0; ball.vz = 0;
   }
 }
 export function stepBall(ball: BallState, dt: number): "goal" | "reset" | null {
+  if (matchWinner(ball)) return null;
   ball.pickupDelay = Math.max(0, ball.pickupDelay-dt);
   if (ball.resetIn > 0) {
     ball.resetIn = Math.max(0,ball.resetIn-dt);
@@ -48,11 +53,11 @@ export function stepBall(ball: BallState, dt: number): "goal" | "reset" | null {
 }
 
 export function advanceAdi(ball: BallState, player: {x:number;z:number;facing:number}, dt:number) {
-  if(ball.resetIn>0)return;
+  if(matchWinner(ball)||ball.resetIn>0)return;
   const attacking=ball.owner==="adi";
   const targetX=attacking?0:ball.x, targetZ=attacking?-48:ball.z;
   const dx=targetX-player.x,dz=targetZ-player.z,distance=Math.hypot(dx,dz);
-  if(distance>.05){const step=Math.min(distance,(attacking?6:9)*dt);player.x+=dx/distance*step;player.z+=dz/distance*step;player.facing=Math.atan2(dx,dz);}
+  if(distance>.05){const step=Math.min(distance,(attacking?4.5:6)*dt);player.x+=dx/distance*step;player.z+=dz/distance*step;player.facing=Math.atan2(dx,dz);}
   takeBall(ball,player.x,player.z,"adi");
   if(ball.owner==="adi"){
     ball.x=player.x+Math.sin(player.facing)*1.1;ball.z=player.z+Math.cos(player.facing)*1.1;
