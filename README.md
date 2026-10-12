@@ -1,18 +1,15 @@
-# Aditya’s Home Ground
+# Aditya’s portfolio
 
-The stadium homepage and original portfolio live together in this repository.
+A soccer-inspired personal portfolio with a live day/night travel globe.
 
-- `app/` and `components/camp-nou/`: editable stadium source.
-- `public/portfolio/`: existing portfolio; Learn more opens `/portfolio/index.html`.
-- `public/`: legacy assets and pages, preserving existing project URLs.
-- `docs/`: deployment output for GitHub Pages and `adityapoudel.live`.
+- `public/`: editable homepage, experience, projects, styles, and assets.
+- `public/portfolio/`: retained portfolio URLs for existing bookmarks.
+- `docs/`: generated GitHub Pages output; do not edit directly.
 
-## Local development
+## Preview and publish
 
-Run `npm install`, then `npm run dev`.
+Run `npm run dev` to preview at http://127.0.0.1:8000.
+Run `npm test` and `npm run build`, then commit and push when ready to publish.
+GitHub Pages serves the `main` branch’s `/docs` folder at adityapoudel.live.
 
-## Deploy
-
-Run `npm run build` to regenerate `docs/`. Commit and push the source and generated `docs/` to this repository. GitHub Pages should publish the `main` branch, `/docs` folder, with the custom domain `adityapoudel.live`. `.nojekyll` ensures Next.js assets are served.
-
-Run `npm test` and `npm run typecheck` to verify changes. Edit original portfolio content in `public/portfolio/`, not generated `docs/portfolio/`.
+The previous stadium application has been removed. No framework or dependency installation is required.
